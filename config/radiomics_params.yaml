@@ -1,0 +1,32 @@
+setting:
+  label: 1
+  padDistance: 1
+  preCrop: True
+  resampledPixelSpacing:
+  minimumROIDimensions: 3
+  minimumROISize: 5
+
+featureClass:
+  shape: 
+    - VoxelVolume
+    - SurfaceArea
+    - SurfaceVolumeRatio
+    - Sphericity
+    - Compactness1
+    - Compactness2
+    - SphericalDisproportion
+    - Maximum3DDiameter
+    - Maximum2DDiameterSlice
+    - Maximum2DDiameterColumn
+    - Maximum2DDiameterRow
+    - MajorAxisLength
+    - MinorAxisLength
+    - LeastAxisLength
+    - Elongation
+    - Flatness
+  #firstorder: null 
+  #glcm: null
+  #glrlm: null
+  #glszm: null
+  #gldm: null
+  #ngtdm: null

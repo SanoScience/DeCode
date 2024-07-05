@@ -1,0 +1,168 @@
+title: Let Me DeCode You - Decoder Conditioning with Tabular Data 
+
+experiment:
+  name: CBCT #CBCT
+  source: cmd #manual, cmd; cmd gives control to command line shell script argparser - manual gives priority to parameters provided in this config file
+
+args:
+  tags: null
+
+  # directories
+  data: data/china #3decode, china
+  test_data: data/test
+  data_radiomics_path: data/radiomics
+  shape_features_file: radiomics_features_norm.npy
+  cache_dir: data/cached_datasets
+  checkpoint_dir: checkpoints
+  inference_model_path: null
+  use_json_split: True
+
+  #training flags
+  comet: True
+  debug_comet: False
+  clear_cache: False
+  clear_test_cache: False
+  continue_training: False
+  stop_early: False
+  use_train_augmentations: True
+  lazy_resampling : True
+  test_time_tabular_data: True
+  perform_test: True
+
+  # architecture 
+  model_name: DeCode 
+  model_config: 'M1'
+  use_random_features: False
+  tabular_features: all
+  conditional_embeddings: entity # feature, entity
+  feature_selection: False
+  radiomics_shape_features_config: all
+  deep_supervision: False
+  trained_model: null
+  n_features: 16
+  unet_depth: 5
+  bias: True
+  regression_mlp_expansion: 1
+
+  #EXPERIMENTS VARIABLES
+  bottleneck_dim: 128
+  tabular_data: True ## set False for unconditioned baseline
+  tabular_module: FiLM # DAFT, FiLM, INSIDE, null
+  is_regression: False
+  is_unet_skip: True
+  is_inference_regression: False
+  is_inference_embedding: False
+  is_embedding: False
+
+  #loss components - optimizer
+  regression_loss_ratio: 0.75
+  similarity_loss_ratio: 1.0
+  focal_weight: 0.5
+  focal_ratio: 0.5
+  dice_ratio: 1.0
+  reg_term: 1.0e-5
+
+  module_positions: False
+  skip_connections: False
+
+  #preprocessing
+  keys: 
+    - image
+    - label
+    - radiomics
+  pixdim: 0.4
+  houndsfield_clip: 3500    
+  z_score_norm: False  
+  percentile_clip: False
+  patch_size: 
+    - 224
+    - 224
+    - 160
+  spatial_crop_size: 
+    - 240
+    - 240
+    - 176
+  spatial_crop_margin:
+    - 32
+    - 32
+    - 32
+  crop_foreground: True
+  
+  #cuda
+  cuda_device_id: 0
+  device: cuda
+  visible_devices: 0,1
+  gpu_frac: 1.0
+  parallel: False
+  use_scaler: False
+  autocast_dtype: float32
+  cache_enabled: False
+  pin_memory: False
+  num_threads: 8
+  num_workers: 0
+  use_tf32: True
+  benchmark_speedup: False
+
+  #reproducibility
+  seed: 48
+  deterministic_algorithms: False
+  deterministic_debug_mode: False
+  use_thread_loader: False
+  use_random_sampler: False
+ 
+  # training params
+  classes: 1
+  epochs: 400
+  batch_size: 4
+  batch_size_val: 1
+  crop_samples: 1
+  gradient_accumulation: 1
+  scheduler_name: late_cosine #cosine_annealing, warmup_cosine, step_lr, late_cosine
+  scheduler_step: 0 # 0 == no annealing
+  warmup_steps: 1       
+  k_splits: 1
+  scheduler_gamma: 0.1
+  patience: 4
+  delta: 0.0005
+  start_epoch: 0
+  training_data_fraction: 1.0
+
+  #optimizer
+  optimizer: AdamW
+  adam_eps: 1.0e-8
+  adam_ams: False
+  lr: 1.0e-3
+  lr_min: 1.0e-5
+  weight_decay: 1.0e-4
+  background_weight: 0.1
+  loss_name: DiceFocalLoss #DiceFocalLoss, DiceLoss
+  grad_clip: True 
+  max_grad_norm: 2.0
+  include_background_loss: True
+  include_background_metrics: False
+
+  #augmentations
+  rotation_range: 0.3
+  translate_range: 0.2 #3DeCode
+
+  #model checkpoints
+  save_checkpoints: True
+  save_interval: 200
+  save_optimiser_interval: 200
+  save_optimizer: True   
+
+  #logging
+  print_config: False
+  is_log_image: True
+  is_log_3d: True
+  is_log_conditioning: True
+  is_log_flops: False
+
+  #intervals
+  validation_interval: 25
+  log_batch_interval: 10
+  log_metrics_interval: 25
+  log_slice_interval: 5
+  log_3d_scene_interval_training: 25
+  log_3d_scene_interval_validation: 25
+  hausdorff_log_epoch: 25

@@ -1,0 +1,68 @@
+title: Radiomics
+
+experiment:
+  name: 3decode - 3d data conditioning
+  source: cmd #cmd
+
+args:
+  tags: null
+  debug_comet: False
+  small_datset_debug: False
+  experiment: varSizeAndShape #size, shape, sizesOfShapes, varSize, varSizeAndShape
+  features_type: radiomics #radiomics, onehot  
+  shape_features_file: shape_features_norm.npy
+  conditioning_file: conditions.npy
+  data: data/3decode/nifti_dataset
+  data_radiomics_path: data/radiomics/3decode
+  cache_dir: data/cached_datasets/3decode
+  inference_model_path: null
+  use_random_features: True
+  use_json_split: False
+  clear_cache: True
+  clear_test_cache: True
+  use_train_augmentations: True
+  rotation_range: 0.15
+  translate_range: 0.2
+  add_noise: True
+  perform_test: True
+  val_split: 0.2
+  test_split: 0.2
+  pixdim: 1.0
+  houndsfield_clip: 1
+  crop_foreground: False
+  loss_name: DiceFocalLoss
+  model_name: DeCode
+  bottleneck_dim: 6
+  regression_mlp_expansion: 1
+  epochs: 1
+  scheduler_step: 0
+  lr: 5.0e-4
+  scheduler_name: late_cosine
+
+  #architetcture config
+  tabular_module: FiLM # DAFT, FiLM, INSIDE, null
+  is_regression: False
+  is_unet_skip: True
+  is_inference_regression: False
+  is_inference_embedding: False
+  is_embedding: False
+
+  #loss
+  features_loss_ratio: 0.2
+  focal_weight: 0.5
+  focal_ratio: 0.5
+  dice_ratio: 1.0
+  regression_criterion: "rmse"
+
+  #cuda
+  cuda_device_id: 0
+  use_scaler: False
+  autocast_dtype: bfloat16
+  cache_enabled: False
+
+  #intervals
+  validation_interval: 10
+  log_3d_scene_interval_validation: 20
+  log_metrics_interval: 10
+  hausdorff_log_epoch: 300
+  max_3d_scans: 100
