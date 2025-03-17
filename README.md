@@ -1,5 +1,5 @@
 # Let Me DeCode You: Decoder Conditioning with Tabular Data
-This is the official code for "Let Me DeCode You: Decoder Conditioning with Tabular Data" accepted at the 27th International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI) 2024.
+This is the official code for ["Let Me DeCode You: Decoder Conditioning with Tabular Data"](https://papers.miccai.org/miccai-2024/paper/3398_paper.pdf) accepted at the 27th International Conference on Medical Image Computing and Computer Assisted Intervention (MICCAI) 2024.
 
 ## Overview
 ![Figure 1. Method overview](figures/DeCode_overview.png?raw=true "DeCodeOverview")
